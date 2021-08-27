@@ -32,17 +32,13 @@
 /* Template default CSS
 /*----------------------------------------*/
 
-img {
-	max-width: 100%;
-}
 /*---------------------
   Helper CSS
 -----------------------*/
 .thumbs {
 	left: 50%;
-	max-width: 503px;
-	background: #ffffff;
-	border: 3px solid #ffffff;
+	width: 503px;
+	max-width: 100%;
 	height: 100px;
 	-webkit-transform: translateX(-251.3px);
 	-ms-transform: translateX(-251.3px);
@@ -50,6 +46,7 @@ img {
 }
 .thumbs .item img {
 	width: 503px;
+	max-width: 100%;
 	height: 100px;
 	cursor: pointer;
 }

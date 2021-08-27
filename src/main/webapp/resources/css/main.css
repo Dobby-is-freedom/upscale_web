@@ -1,5 +1,7 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600");
+/*한글 폰트*/
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR&display=swap');
 
 /*
 	Dimension by HTML5 UP
@@ -379,7 +381,7 @@ form > .fields > .field.quarter {
 label {
     color: #ffffff;
     display: block;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 300;
     letter-spacing: 0.2rem;
     line-height: 1.5;
@@ -648,7 +650,7 @@ input[type="radio"] + label:before {
 
 .image:before {
     pointer-events: none;
-    background-image: url("../../images/overlay.png");
+    background-image: url("../../resources/images/overlay.png");
     background-color: rgba(19, 21, 25, 0.5);
     border-radius: 4px;
     content: '';
@@ -1141,7 +1143,7 @@ button {
     -webkit-transition-delay: 0.75s;
     -ms-transition-delay: 0.75s;
     transition-delay: 0.75s;
-    background-image: linear-gradient(to top, rgba(19, 21, 25, 0.5), rgba(19, 21, 25, 0.5)), url("../../images/overlay.png");
+    background-image: linear-gradient(to top, rgba(19, 21, 25, 0.5), rgba(19, 21, 25, 0.5)), url("../../resources/images/overlay.png");
     background-size: auto,
     256px 256px;
     background-position: center,
@@ -1160,7 +1162,7 @@ button {
     -webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
     -ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
     transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
-    background-image: url("../../images/bg.jpg");
+    background-image: url("../../resources/images/bg.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1662,119 +1664,22 @@ body.is-preload #footer {
     opacity: 0;
 }
 
-let dropbox
-
-;
-
-dropbox
-
-=
-document.
-
-getElementById
-(
-"fileElem"
-)
-;
-dropbox.
-
-addEventListener
-(
-"dragenter"
-,
-dragenter, false
-
-)
-;
-dropbox.
-
-addEventListener
-(
-"dragover"
-,
-dragover, false
-
-)
-;
-dropbox.
-
-addEventListener
-(
-"drop"
-,
-drop, false
-
-)
-;
-
-/
-/
-input에 붙일 드래그 앤 드롭 이벤트
-function
-
-dragenter
-(
-e
-
-)
-{
-    e . stopPropagation()
-;
-    e . preventDefault()
-;
-}
-function
-
-dragover
-(
-e
-
-)
-{
-    e . stopPropagation()
-;
-    e . preventDefault()
-;
-}
-function
-
-drop
-(
-e
-
-)
-{
-    e . stopPropagation()
-;
-    e . preventDefault()
-;
-
-    const dt = e . dataTransfer
-;
-    const files = dt . files
-;
-
-handleFiles
-(
-files
-)
-;
+/*이미지 선택, 옵션 부분 css*/
+.optionbox-left {
+    /*font-family: "Source Sans Pro", sans-serif;*/
+    /*font-weight : bold;*/
+    font-size: 1rem;
+    /*border: 1px solid white;
+    border-radius : 4px ;*/
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 0 1.25rem 0 1.25rem;
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* style.css */
-
-/* label 스타일 조정 */
-.button {
-    display: flex;
-    justify-content: center;
-}
-
-label {
-    cursor: pointer;
-    font-size: 1em;
-}
-
-/* 못생긴 기존 input 숨기기 */
-#chooseFile {
-    visibility: hidden;
+/*한글 폰트*/
+.kr-font {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 30px;
 }
