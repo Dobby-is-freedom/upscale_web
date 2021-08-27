@@ -3,7 +3,7 @@ package dobby.upscale.demo.upload;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.concurrent.Executors;
+//import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 @Service
@@ -21,10 +21,18 @@ public class UploadShellService {
 
 
         public void run() {
-            try {
-                new BufferedReader(new InputStreamReader(inputStream, "euc-kr")).lines()
-                        .forEach(consumer);
+            try (BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream, "euc-kr"));){
+                //new BufferedReader(new InputStreamReader(inputStream, "euc-kr")).lines().forEach(consumer);
+                // BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream, "euc-kr"));
+                bf.lines().forEach(consumer);
+                try {
+                    bf.close();
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
             } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
