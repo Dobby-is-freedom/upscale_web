@@ -24,7 +24,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <link rel="stylesheet" href="../../resources/css/noscript.css"/>
     </noscript>
 
-    <!--Uploader css-->
+    <!--Thumbnail slider css-->
     <link rel="stylesheet" href="../../resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="../../resources/css/sliderstyle.css" type="text/css">
 
@@ -42,6 +42,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <div class="content">
             <div class="inner">
                 <!-- 안녕하세요 ㅇ소여씨 -->
+                <!-- ^이거 누구에욬ㅋㅋㅋㅋㅋㅋ -->
                 <h1>dobby is free</h1>
             </div>
         </div>
