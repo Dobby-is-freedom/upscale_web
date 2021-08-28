@@ -36,9 +36,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
     <!-- Header -->
     <header id="header">
-        <div class="logo">
-            <span class="icon fa-gem"></span>
-        </div>
+        <%--        <div class="logo">--%>
+        <%--            <span class="icon fa-gem"></span>--%>
+        <%--        </div>--%>
         <div class="content">
             <div class="inner">
                 <!-- 안녕하세요 ㅇ소여씨 -->
@@ -51,9 +51,11 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <!-- Main -->
     <!--uploader begin-->
     <div class="imagebox">
-        <div class="optionbox-left" style="display : inline-block; margin-right: 40px">이미지 선택 :</div>
+        <div class="optionbox-left">이미지 선택 :</div>
         <!--        <input type="file" id="fileElem" multiple accept="image/*" onchange="setThumbnail(event);">-->
-        <input type="file" class="file-button" multiple accept="image/*" onchange="setThumbnail(event);"/>
+        <%--파일 선택 버튼--%>
+        <label class="fileCk" for="fileElem" >파일 선택</label>
+        <input type="file" id="fileElem" class="file-button" multiple accept="image/*" onchange="setThumbnail(event);"/>
     </div>
 
     <script>
@@ -100,7 +102,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
     <!--option-->
     <div class="optionbox">
-        <div class="optionbox-left" style="display : inline-block; margin-right: 30px">옵션 :</div>
+        <div class="optionbox-left">옵션 :</div>
         <div class="optionbox-right" style="display : inline-block;">
 
             <input type="radio" id="basic" name="selection" value="basic" checked>
