@@ -53,7 +53,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <div class="imagebox">
         <div class="optionbox-left" style="display : inline-block; margin-right: 40px">이미지 선택 :</div>
         <!--        <input type="file" id="fileElem" multiple accept="image/*" onchange="setThumbnail(event);">-->
-        <input type="file" id="fileElem" class="file-button" multiple accept="image/*" onchange="setThumbnail(event);"/>
+        <input type="file" class="file-button" multiple accept="image/*" onchange="setThumbnail(event);"/>
     </div>
 
     <script>
@@ -82,12 +82,16 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
                 reader.readAsDataURL(image);
             }
+
+            // 이미지 넣으면 thumbnail slider 보여주기
+            $("#slider").show();
         }
     </script>
     <!--uploader end-->
 
     <!--thumbnail slider-->
-    <section>
+    <%--처음 thumbnail slider 공간 숨기기--%>
+    <section id="slider" style="display: none">
         <div class="thumbnail-pic">
             <div id="img_container" class="thumbs owl-carousel"></div>
         </div>
@@ -100,15 +104,23 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <div class="optionbox-right" style="display : inline-block;">
 
             <input type="radio" id="basic" name="selection" value="basic" checked>
-            <label class="kr-font" for="basic">basic</label>
+            <label class="kr-font" for="basic">기본</label>
 
             <input type="radio" id="image" name="selection" value="image">
-            <label class="kr-font" for="image">image</label>
+            <label class="kr-font" for="image">그림</label>
 
             <input type="radio" id="photo" name="selection" value="photo">
-            <label class="kr-font" for="photo">photo</label>
+            <label class="kr-font" for="photo">사진</label>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $("input:radio[name='selection']:radio[value='basic']").prop('checked', true); // 선택하기
+            $("input:radio[name='selection']:radio[value='basic']").prop('checked', false); // 해제하기
+        })
+    </script>
 
     <!-- Footer -->
     <footer id="footer">
@@ -131,14 +143,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 <script src="../../resources/js/jquery-ui.min.js"></script>
 <script src="../../resources/js/owl.carousel.min.js"></script>
 <script src="../../resources/js/uploaderNslider_main.js"></script>
-
-<script>
-    $(document).ready(function () {
-
-        $("input:radio[name='selection']:radio[value='basic']").prop('checked', true); // 선택하기
-        $("input:radio[name='selection']:radio[value='basic']").prop('checked', false); // 해제하기
-    })
-</script>
 
 </body>
 </html>
