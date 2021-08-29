@@ -131,7 +131,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <label class="kr-font" for="photo">사진</label>
         </div>
     </div>
-
+<!--
     <script>
         $(document).ready(function () {
 
@@ -140,6 +140,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         })
     </script>
 
+    -->
     <!-- Footer -->
     <footer id="footer">
         <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
