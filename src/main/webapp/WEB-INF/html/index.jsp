@@ -68,25 +68,33 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             }
             owl.trigger('refresh.owl.carousel');
 
-            for (var image of event.target.files) {
-                var reader = new FileReader();
+            // 선택한 이미지의 개수 체크
+            if (event.target.files.length !== 0) {
+                for (var image of event.target.files) {
+                    var reader = new FileReader();
 
-                reader.onload = function (event) {
-                    var newimg = document.createElement("img");
-                    newimg.setAttribute("src", event.target.result);
-                    // newimg.setAttribute("alt", "");
-                    var newitem = document.createElement("div");
-                    newitem.setAttribute("class", "item");
-                    newitem.appendChild(newimg);
+                    reader.onload = function (event) {
+                        var newimg = document.createElement("img");
+                        newimg.setAttribute("src", event.target.result);
+                        // newimg.setAttribute("alt", "");
+                        var newitem = document.createElement("div");
+                        newitem.setAttribute("class", "item");
+                        newitem.appendChild(newimg);
 
-                    owl.trigger('add.owl.carousel', newitem).trigger('update.owl.carousel').trigger('refresh.owl.carousel');
-                };
+                        owl.trigger('add.owl.carousel', newitem).trigger('update.owl.carousel').trigger('refresh.owl.carousel');
+                    };
 
-                reader.readAsDataURL(image);
+                    reader.readAsDataURL(image);
+                }
+
+                // 이미지 넣으면 thumbnail slider 보여주기
+                $("#slider").show();
+            }
+            else {
+                // 이미지 없으면 thumbnail slider 숨기기
+                $("#slider").hide();
             }
 
-            // 이미지 넣으면 thumbnail slider 보여주기
-            $("#slider").show();
         }
     </script>
     <!--uploader end-->

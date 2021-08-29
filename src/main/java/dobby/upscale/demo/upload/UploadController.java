@@ -52,7 +52,7 @@ public class UploadController {
             //System.exit(0);
 
             return "ok";
-        }catch (Exception e) {
+        } catch (IOException | InterruptedException e) {
             return "fail";
         }
     }

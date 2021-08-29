@@ -53,6 +53,7 @@
 
 		}
 
+		/*
 	// Nav.
 		var $nav = $header.children('nav'),
 			$nav_li = $nav.find('li');
@@ -65,6 +66,7 @@
 
 			}
 
+			*/
 	// Main.
 		var	delay = 325,
 			locked = false;
