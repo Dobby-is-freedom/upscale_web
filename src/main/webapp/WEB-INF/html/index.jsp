@@ -24,10 +24,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <link rel="stylesheet" href="../../resources/css/noscript.css"/>
     </noscript>
 
-    <!--Thumbnail slider css-->
-    <link rel="stylesheet" href="../../resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../../resources/css/sliderstyle.css" type="text/css">
-
 </head>
 <body class="is-preload">
 
@@ -60,61 +56,11 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
     <%--파일 드래그 앤 드롭 부분--%>
     <div class="drag-drop">
-        <input class="img-drag-in" type='file' multiple accept="image/*" onchange="setThumbnail(event);"/>
+        <input class="img-drag-in" type='file' multiple accept="image/*"/>
         <div  id="drag-text" class="drag-text">
             <label>이미지 끌어다 놓기</label>
         </div>
     </div>
-
-    <script>
-        function setThumbnail(event) {
-            var owl = $('.owl-carousel');
-
-            var count = document.querySelectorAll(".item").length;
-            for (var i = 0; i < count; i++) {
-                owl.trigger('remove.owl.carousel', 0);
-            }
-            owl.trigger('refresh.owl.carousel');
-
-            // 선택한 이미지의 개수 체크
-            if (event.target.files.length !== 0) {
-                for (var image of event.target.files) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (event) {
-                        var newimg = document.createElement("img");
-                        newimg.setAttribute("src", event.target.result);
-                        // newimg.setAttribute("alt", "");
-                        var newitem = document.createElement("div");
-                        newitem.setAttribute("class", "item");
-                        newitem.appendChild(newimg);
-
-                        owl.trigger('add.owl.carousel', newitem).trigger('update.owl.carousel').trigger('refresh.owl.carousel');
-                    };
-
-                    reader.readAsDataURL(image);
-                }
-
-                // 이미지 넣으면 thumbnail slider 보여주기
-                $("#slider").show();
-                $(".drag-text").hide();
-            } else {
-                // 이미지 없으면 thumbnail slider 숨기기
-                $("#slider").hide();
-            }
-
-        }
-    </script>
-    <!--uploader end-->
-
-    <!--thumbnail slider-->
-    <%--처음 thumbnail slider 공간 숨기기--%>
-    <section id="slider" style="display: none">
-        <div class="thumbnail-pic">
-            <div id="img_container" class="thumbs owl-carousel"></div>
-        </div>
-    </section>
-    <!--thumbnail slider-->
 
     <!--option-->
     <div class="optionbox">
@@ -131,16 +77,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <label class="kr-font" for="photo">사진</label>
         </div>
     </div>
-<!--
-    <script>
-        $(document).ready(function () {
 
-            $("input:radio[name='selection']:radio[value='basic']").prop('checked', true); // 선택하기
-            $("input:radio[name='selection']:radio[value='basic']").prop('checked', false); // 해제하기
-        })
-    </script>
-
-    -->
     <!-- Footer -->
     <footer id="footer">
         <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
@@ -157,11 +94,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 <script src="../../resources/js/breakpoints.min.js"></script>
 <script src="../../resources/js/util.js"></script>
 <script src="../../resources/js/main.js"></script>
-<!--Uploader Scripts-->
-<script src="../../resources/js/jquery-3.3.1.min.js"></script>
-<script src="../../resources/js/jquery-ui.min.js"></script>
-<script src="../../resources/js/owl.carousel.min.js"></script>
-<script src="../../resources/js/uploaderNslider_main.js"></script>
 
 </body>
 </html>
