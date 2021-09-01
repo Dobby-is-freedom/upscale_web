@@ -45,38 +45,45 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     </header>
 
     <!-- Main -->
-    <!--uploader begin-->
-    <%--파일 선택 버튼--%>
-    <div class="imagebox">
-        <div class="optionbox-left">이미지 선택 :</div>
-        <!--        <input type="file" id="fileElem" multiple accept="image/*" onchange="setThumbnail(event);">-->
-        <label class="fileCk" for="fileElem">파일 선택</label>
-        <input type="file" id="fileElem" class="file-button" multiple accept="image/*" onchange="setThumbnail(event);"/>
-    </div>
-
-    <%--파일 드래그 앤 드롭 부분--%>
-    <div class="drag-drop">
-        <input class="img-drag-in" type='file' multiple accept="image/*"/>
-        <div  id="drag-text" class="drag-text">
-            <label>이미지 끌어다 놓기</label>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <!--uploader begin-->
+        <%--파일 선택 버튼--%>
+        <div class="imagebox">
+            <div class="optionbox-left">이미지 선택 :</div>
+            <!--        <input type="file" id="fileElem" multiple accept="image/*" onchange="setThumbnail(event);">-->
+            <label class="fileCk" for="fileElem">파일 선택</label>
+            <input type="file" id="fileElem" name="file" class="file-button" multiple accept="image/*" onchange="setThumbnail(event);"/>
         </div>
-    </div>
 
-    <!--option-->
-    <div class="optionbox">
-        <div class="optionbox-left">옵션 :</div>
-        <div class="optionbox-right" style="display : inline-block;">
-
-            <input type="radio" id="basic" name="selection" value="basic" checked>
-            <label class="kr-font" for="basic">기본</label>
-
-            <input type="radio" id="image" name="selection" value="image">
-            <label class="kr-font" for="image">그림</label>
-
-            <input type="radio" id="photo" name="selection" value="photo">
-            <label class="kr-font" for="photo">사진</label>
+        <%--파일 드래그 앤 드롭 부분--%>
+        <div class="drag-drop">
+            <input name="file" class="img-drag-in" type='file'  multiple accept="image/*"/>
+            <div  id="drag-text" class="drag-text">
+                <label>이미지 끌어다 놓기</label>
+            </div>
         </div>
-    </div>
+
+        <!--option-->
+        <div class="optionbox">
+            <div class="optionbox-left">옵션 :</div>
+            <div class="optionbox-right" style="display : inline-block;">
+
+                <input type="radio" id="basic" name="selection" value="basic" checked>
+                <label class="kr-font" for="basic">기본</label>
+
+                <input type="radio" id="image" name="selection" value="image">
+                <label class="kr-font" for="image">그림</label>
+
+                <input type="radio" id="photo" name="selection" value="photo">
+                <label class="kr-font" for="photo">사진</label>
+            </div>
+        </div>
+
+        <!--upload-->
+        <div>
+            <input type="submit" value="업로드"/>
+        </div>
+    </form>
 
     <!-- Footer -->
     <footer id="footer">

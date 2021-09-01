@@ -110,9 +110,12 @@ public class UploadController {
             loopFile:
             for (int i = 0; i < fileList.size(); i++) {
 
-
-                    File newFile = new File(upload.getPath() + "/" + i );
-                    File tempFile = new File("D:\\Study\\upscale_web\\out\\production\\resources\\" + i);
+                    if (fileList.get(i).getSize() == 0) {
+                        // input 태그가 두개라서 둘 중 하나는 빈 곳 존재
+                        continue;
+                    }
+                    File newFile = new File(upload.getPath() + "/" + i +".png");
+                    File tempFile = new File("C:\\src\\git\\iNNfer\\input\\" + i+".png");
 
                     fileList.get(i).transferTo(newFile);
 
