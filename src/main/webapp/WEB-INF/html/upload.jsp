@@ -14,7 +14,7 @@
 <body>
 <fieldset>
     <legend>파일 업로드</legend>
-    <form action="UploadService" method="post" enctype="multipart/form-data">
+    <form action="/upload" method="post" enctype="multipart/form-data">
         글쓴이 :
         <input type="text" name="author"/>
         제목 :

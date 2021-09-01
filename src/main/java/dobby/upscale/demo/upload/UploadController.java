@@ -1,14 +1,22 @@
 package dobby.upscale.demo.upload;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 //import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -78,5 +86,76 @@ public class UploadController {
             return "fail";
         }
     }
+
+
+    @RequestMapping(value = "/upload")
+    public
+  String  doUpload(@RequestParam Map<String, String> map, @RequestParam("file") List<MultipartFile> fileList, HttpSession httpSession) {
+
+        Map results = new HashMap<String, Object>();
+
+        try {
+
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            Calendar calendar = Calendar.getInstance();
+            String nowPath = sdf.format(date);
+
+            System.out.println(map.get("author"));
+            System.out.println(map.get("title"));
+
+
+            File upload = new File(httpSession.getServletContext().getRealPath(File.separator) + "/resources/upload/" + nowPath);
+
+            if (upload.isDirectory() == false) {
+                upload.mkdirs();
+            }
+
+            loopFile:
+            for (int i = 0; i < fileList.size(); i++) {
+
+
+                    File newFile = new File(upload.getPath() + "/" + i );
+//                    File tempFile = new File("D:\\Study\\upscale_web\\out\\production\\resources\\" + i);
+//
+//                    fileList.get(i).transferTo(newFile);
+//
+//                    this.fileCopy( newFile.getPath(), tempFile.getPath());
+
+
+            }
+
+
+
+            results.put("status", "OK");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            results.put("status", "FAIL");
+            results.put("msg", e.getMessage());
+        }
+
+        return "/html/index";
+    }
+
+    //파일을 복사하는 메소드
+    public static void fileCopy(String inFileName, String outFileName) {
+        try {
+            FileInputStream fis = new FileInputStream(inFileName);
+            FileOutputStream fos = new FileOutputStream(outFileName);
+
+            int data = 0;
+            while ((data = fis.read()) != -1) {
+                fos.write(data);
+            }
+            fis.close();
+            fos.close();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }
+
 
