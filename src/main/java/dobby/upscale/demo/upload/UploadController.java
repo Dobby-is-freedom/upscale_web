@@ -29,9 +29,31 @@ public class UploadController {
 
             System.out.println("실행환경이 윈도우인가? " + isWindows);
 
+            // 라디오버튼의 값
+            String radio = "basic";
+
             ProcessBuilder builder = new ProcessBuilder();
             if (isWindows) {
-                builder.command("cmd.exe", "/c", "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat C:\\ProgramData\\Anaconda3 && cd C:\\src\\git\\iNNfer && python run.py -m C:\\src\\git\\iNNfer\\models\\RRDB_ESRGAN_x4.pth");
+                // 사용할 모델의 루트를 제외한 나머지
+                String baseRoute = "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat " +
+                        "C:\\ProgramData\\Anaconda3 " +
+                        "&& cd C:\\src\\git\\iNNfer && python run.py -m ";
+                // 사용할 모델의 루트
+                String modelRoute = null;
+                switch(radio) {
+                    case "basic":
+                        modelRoute = "C:\\src\\git\\iNNfer\\models\\RRDB_ESRGAN_x4.pth";
+                        break;
+                    case "image":
+                        modelRoute = "";
+                        break;
+                    case "photo":
+                        modelRoute = "";
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + radio);
+                }
+                builder.command("cmd.exe", "/c", baseRoute+modelRoute);
             } else {
                 builder.command("python", "/Users/psy/study/upscale_web/src/main/resources/python/test.py");
             }

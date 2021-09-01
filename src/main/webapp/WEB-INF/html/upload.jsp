@@ -14,6 +14,15 @@
 <body>
 <fieldset>
     <legend>파일 업로드</legend>
+    <form action="UploadService" method="post" enctype="multipart/form-data">
+        글쓴이 :
+        <input type="text" name="author"/>
+        제목 :
+        <input type="text" name="title"/>
+        <input type="file" value="파일 선택" name="file" multiple/>
+        <input type="submit" value="업로드"/>
+    </form>
+    <!--
     <table>
         <form action="UploadService" method="post" enctype="multipart/form-data">
             <tr>
@@ -33,6 +42,7 @@
             </tr>
         </form>
     </table>
+    -->
 </fieldset>
 </body>
 </html>
