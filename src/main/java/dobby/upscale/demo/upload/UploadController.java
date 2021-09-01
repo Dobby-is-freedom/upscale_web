@@ -90,7 +90,7 @@ public class UploadController {
 
     @RequestMapping(value = "/upload")
     public
-  String  doUpload(@RequestParam Map<String, String> map, @RequestParam("file") List<MultipartFile> fileList, HttpSession httpSession) {
+ String doUpload(@RequestParam Map<String, String> map, @RequestParam("file") List<MultipartFile> fileList, HttpSession httpSession) {
 
         Map results = new HashMap<String, Object>();
 
@@ -101,11 +101,7 @@ public class UploadController {
             Calendar calendar = Calendar.getInstance();
             String nowPath = sdf.format(date);
 
-            System.out.println(map.get("author"));
-            System.out.println(map.get("title"));
-
-
-            File upload = new File(httpSession.getServletContext().getRealPath(File.separator) + "/resources/upload/" + nowPath);
+            File upload = new File(httpSession.getServletContext().getRealPath(File.separator) + "/resources" + nowPath);
 
             if (upload.isDirectory() == false) {
                 upload.mkdirs();
@@ -116,11 +112,11 @@ public class UploadController {
 
 
                     File newFile = new File(upload.getPath() + "/" + i );
-//                    File tempFile = new File("D:\\Study\\upscale_web\\out\\production\\resources\\" + i);
-//
-//                    fileList.get(i).transferTo(newFile);
-//
-//                    this.fileCopy( newFile.getPath(), tempFile.getPath());
+                    File tempFile = new File("D:\\Study\\upscale_web\\out\\production\\resources\\" + i);
+
+                    fileList.get(i).transferTo(newFile);
+
+                    this.fileCopy( newFile.getPath(), tempFile.getPath());
 
 
             }
@@ -135,8 +131,10 @@ public class UploadController {
             results.put("msg", e.getMessage());
         }
 
-        return "/html/index";
+        return "html/index";
+
     }
+
 
     //파일을 복사하는 메소드
     public static void fileCopy(String inFileName, String outFileName) {
