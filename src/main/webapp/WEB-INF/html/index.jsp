@@ -63,6 +63,14 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             </div>
         </div>
 
+        <!--upload-->
+        <div>
+            <input type="submit" value="업로드"/>
+        </div>
+
+    </form>
+
+    <form action="/download" method="post" enctype="multipart/form-data">
         <!--option-->
         <div class="optionbox">
             <div class="optionbox-left">옵션 :</div>
@@ -81,9 +89,10 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         <!--upload-->
         <div>
-            <input type="submit" value="업로드"/>
+            <input type="submit" value="다운로드"/>
         </div>
-    </form>
+
+    </form>>
 
     <!-- Footer -->
     <footer id="footer">
