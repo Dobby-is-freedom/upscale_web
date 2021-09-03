@@ -52,16 +52,79 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <div class="optionbox-left">이미지 선택 :</div>
             <!--        <input type="file" id="fileElem" multiple accept="image/*" onchange="setThumbnail(event);">-->
             <label class="fileCk" for="fileElem">파일 선택</label>
-            <input type="file" id="fileElem" name="file" class="file-button" multiple accept="image/*" onchange="setThumbnail(event);"/>
+            <input type="file" id="fileElem" class="file-button" multiple accept="image/*"/>
         </div>
 
         <%--파일 드래그 앤 드롭 부분--%>
         <div class="drag-drop">
-            <input name="file" class="img-drag-in" type='file'  multiple accept="image/*"/>
-            <div  id="drag-text" class="drag-text">
+            <input name="file" class="img-drag-in" id="img-drag-in" type='file' multiple accept="image/*"/>
+            <div id="drag-text" class="drag-text">
                 <label>이미지 끌어다 놓기</label>
             </div>
         </div>
+
+        <%--이미지 보여지는 부분--%>
+        <p class="no-file">(파일이 선택되지 않음)</p>
+        <table id="file-table" style="display: none">
+        </table>
+
+        <script>
+            function inputFile(input) {
+                const fileView = document.getElementById("file-table")
+
+                if (input.files) {
+                    $(".no-file").hide();
+                    $("#file-table").show();
+
+                    const fileArr = Array.from(input.files)
+
+                    fileArr.forEach((file, index) => {
+                        const id = Math.random();
+
+                        const tableTr = document.createElement("tr")
+                        tableTr.id = "tr_" + id;
+
+                        const fileReader = new FileReader()
+
+                        const imgView = document.createElement("img")
+                        imgView.classList.add("imageView")
+
+                        const fileName = document.createElement("td")
+                        fileName.textContent = file.name
+                        fileName.classList.add("imgName")
+
+                        const fileDelete = document.createElement("button")
+                        fileDelete.textContent = "선택 취소";
+                        fileDelete.classList.add("fileDelete")
+                        fileDelete.addEventListener('click', function (event) {
+                            console.log(tableTr.id + '를 삭제합니다.');
+                            document.getElementById(tableTr.id).remove();
+                        });
+                        tableTr.appendChild(imgView)
+                        tableTr.appendChild(fileName)
+                        tableTr.appendChild(fileDelete)
+
+                        fileReader.onload = e => {
+                            imgView.src = e.target.result
+                        }
+
+                        fileReader.readAsDataURL(file)
+
+                        fileView.appendChild(tableTr)
+                    })
+                }
+            }
+
+            const inImg = document.getElementById("fileElem")
+            inImg.addEventListener("change", e => {
+                inputFile(e.target)
+            })
+
+            const dragImg = document.getElementById("img-drag-in")
+            dragImg.addEventListener("change", e => {
+                inputFile(e.target)
+            })
+        </script>
 
         <!--upload-->
         <div>
@@ -73,26 +136,31 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <form action="/download" method="post" enctype="multipart/form-data">
         <!--option-->
         <div class="optionbox">
-            <div class="optionbox-left">옵션 :</div>
             <div class="optionbox-right" style="display : inline-block;">
 
-                <input type="radio" id="basic" name="selection" value="basic" checked>
-                <label class="kr-font" for="basic">기본</label>
+                <!--option-->
+                <div class="optionbox">
+                    <div class="optionbox-left">옵션 :</div>
+                    <div class="optionbox-right" style="display : inline-block;">
 
-                <input type="radio" id="image" name="selection" value="image">
-                <label class="kr-font" for="image">그림</label>
+                        <input type="radio" id="basic" name="selection" value="basic" checked>
+                        <label class="kr-font" for="basic">기본</label>
 
-                <input type="radio" id="photo" name="selection" value="photo">
-                <label class="kr-font" for="photo">사진</label>
+                        <input type="radio" id="image" name="selection" value="image">
+                        <label class="kr-font" for="image">그림</label>
+
+                        <input type="radio" id="photo" name="selection" value="photo">
+                        <label class="kr-font" for="photo">사진</label>
+                    </div>
+                </div>
             </div>
         </div>
-
         <!--upload-->
         <div>
             <input type="submit" value="다운로드"/>
         </div>
 
-    </form>>
+    </form>
 
     <!-- Footer -->
     <footer id="footer">

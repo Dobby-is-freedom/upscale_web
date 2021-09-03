@@ -1748,3 +1748,24 @@ body.is-preload #footer {
     padding: 35px 0;
     font-family: 'Noto Sans KR', sans-serif;
 }
+
+/* 이미지 보여지는 부분 */
+.no-file{
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+}
+
+#file-list{
+    width: 400px;
+    height: 100px;
+}
+
+.imageView{
+    width : 50px;
+    height : 50px;
+}
+
+.imgName{
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+}
