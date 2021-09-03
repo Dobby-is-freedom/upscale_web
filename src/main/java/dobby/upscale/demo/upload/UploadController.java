@@ -1,14 +1,10 @@
 package dobby.upscale.demo.upload;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-//import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -25,68 +21,6 @@ public class UploadController {
 
     @Autowired
     UploadShellService uploadShellService;
-
-    @RequestMapping(value = "/uploadTest")
-    @ResponseBody
-    public String uploadTest() {
-
-        try {
-
-            boolean isWindows = System.getProperty("os.name")
-                    .toLowerCase().startsWith("windows");
-
-            System.out.println("실행환경이 윈도우인가? " + isWindows);
-
-            // 라디오버튼의 값
-            String radio = "basic";
-
-            ProcessBuilder builder = new ProcessBuilder();
-            if (isWindows) {
-                // 사용할 모델의 루트를 제외한 나머지
-                String baseRoute = "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat " +
-                        "C:\\ProgramData\\Anaconda3 " +
-                        "&& cd C:\\src\\git\\iNNfer && python run.py -m ";
-                // 사용할 모델의 루트
-                String modelRoute = null;
-                switch(radio) {
-                    case "basic":
-                        modelRoute = "C:\\src\\git\\iNNfer\\models\\RRDB_ESRGAN_x4.pth";
-                        break;
-                    case "image":
-                        modelRoute = "";
-                        break;
-                    case "photo":
-                        modelRoute = "";
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + radio);
-                }
-                builder.command("cmd.exe", "/c", baseRoute+modelRoute);
-            } else {
-                builder.command("python", "/Users/psy/study/upscale_web/src/main/resources/python/test.py");
-            }
-            builder.directory(new File(System.getProperty("user.home")));
-            Process process = builder.start();
-
-            UploadShellService.StreamGobbler streamGobbler =
-                    new UploadShellService.StreamGobbler(process.getInputStream(), System.out::println);
-            ExecutorService tesk1 = Executors.newSingleThreadExecutor();
-            tesk1.submit(streamGobbler);
-
-            //Executors.newSingleThreadExecutor().submit(streamGobbler);
-            process.waitFor();
-            System.out.println("END");
-
-            process.destroy();
-            tesk1.shutdownNow();
-            //System.exit(0);
-
-            return "ok";
-        } catch (IOException | InterruptedException e) {
-            return "fail";
-        }
-    }
-
 
     @RequestMapping(value = "/upload")
     public
@@ -115,15 +49,13 @@ public class UploadController {
                         continue;
                     }
                     File newFile = new File(upload.getPath() + "/" + i +".png");
-                    File tempFile = new File("C:\\src\\git\\iNNfer\\input\\" + i+".png");
+                    File tempFile = new File("C:\\src\\git\\Real-ESRGAN-210902\\inputs\\" + i+".png");
 
                     fileList.get(i).transferTo(newFile);
 
                     this.fileCopy( newFile.getPath(), tempFile.getPath());
 
-
             }
-
 
 
             results.put("status", "OK");
@@ -134,10 +66,16 @@ public class UploadController {
             results.put("msg", e.getMessage());
         }
 
+        String ok = uploadTest(map.get("selection"));
+        if (ok =="ok") {
+            System.out.println(ok);
+        } else {
+            System.out.println(ok);
+        }
+
         return "html/index";
 
     }
-
 
     //파일을 복사하는 메소드
     public static void fileCopy(String inFileName, String outFileName) {
@@ -157,6 +95,66 @@ public class UploadController {
             e.printStackTrace();
         }
     }
+
+    // 파이썬 실행 코드
+    public String uploadTest(String radio) {
+
+        try {
+
+            boolean isWindows = System.getProperty("os.name")
+                    .toLowerCase().startsWith("windows");
+
+            System.out.println("실행환경이 윈도우인가? " + isWindows);
+
+            System.out.println(radio);
+
+            ProcessBuilder builder = new ProcessBuilder();
+            if (isWindows) {
+                // 사용할 모델의 루트를 제외한 나머지
+                String baseRoute = "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat " +
+                        "C:\\ProgramData\\Anaconda3 " +
+                        "&& cd C:\\src\\git\\Real-ESRGAN-210902 " +
+                        "&& python inference_realesrgan.py --model_path";
+                // 사용할 모델의 루트
+                String modelRoute = null;
+                switch(radio) {
+                    case "basic":
+                        modelRoute = " C:\\src\\git\\Real-ESRGAN-210902\\experiments\\pretrained_models\\RealESRGAN_x4plus.pth";
+                        break;
+                    case "image":
+                        modelRoute = "";
+                        break;
+                    case "photo":
+                        modelRoute = "";
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + radio);
+                }
+                builder.command("cmd.exe", "/c", baseRoute+modelRoute+" --input inputs --face_enhance");
+            } else {
+                builder.command("python", "/Users/psy/study/upscale_web/src/main/resources/python/test.py");
+            }
+            builder.directory(new File(System.getProperty("user.home")));
+            Process process = builder.start();
+
+            UploadShellService.StreamGobbler streamGobbler =
+                    new UploadShellService.StreamGobbler(process.getInputStream(), System.out::println);
+            ExecutorService tesk1 = Executors.newSingleThreadExecutor();
+            tesk1.submit(streamGobbler);
+
+            //Executors.newSingleThreadExecutor().submit(streamGobbler);
+            process.waitFor();
+            System.out.println("END");
+
+            process.destroy();
+            tesk1.shutdownNow();
+
+            return "ok";
+        } catch (IOException | InterruptedException e) {
+            return "fail";
+        }
+    }
+
 }
 
 
