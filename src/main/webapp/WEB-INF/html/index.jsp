@@ -209,7 +209,11 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 processData: false,
                 contentType: false,
                 success: function (e){
-                    alert("성공");
+                    console.log("성공");
+
+                    upFile.disabled = true;
+
+                    $('#downloadBtn').prop('disabled', false);
                 },
                 error: function (e){
                     console.log("실패");
@@ -243,10 +247,15 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         <!--upload-->
         <div>
-            <input type="submit" value="다운로드" style="disabled: true"/>
+            <input type="submit" id="downloadBtn" value="다운로드" disabled=""/>
         </div>
     </form>
 
+    <script>
+        $(document).ready(function ($) {
+            $('#downloadBtn').prop('disabled', true);
+        });
+    </script>
     <!-- Footer -->
     <footer id="footer">
         <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
