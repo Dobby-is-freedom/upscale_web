@@ -1,6 +1,7 @@
 package dobby.upscale.demo.upload;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,9 @@ public class UploadController {
 
     @Autowired
     UploadShellService uploadShellService;
+
+    @Value("${file.temp.path}")
+    String fileTempPath;
 
     @RequestMapping(value = "/upload")
     @ResponseBody
@@ -55,7 +59,7 @@ public class UploadController {
                         continue;
                     }
                     File newFile = new File(upload.getPath() + "/" + i +".png");
-                    File tempFile = new File("C:/src/git/Real-ESRGAN-210902/inputs/" + i+".png");
+                    File tempFile = new File(fileTempPath + i+".png");
 
                     fileList.get(i).transferTo(newFile);
 
