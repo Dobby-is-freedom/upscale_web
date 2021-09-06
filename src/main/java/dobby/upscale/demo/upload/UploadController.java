@@ -1,6 +1,7 @@
 package dobby.upscale.demo.upload;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,9 @@ public class UploadController {
     @Autowired
     UploadShellService uploadShellService;
 
+    @Value("${file.upload.path}")
+    String uploadPath;
+
     @RequestMapping(value = "/uploadTest")
     @ResponseBody
     public String uploadTest() {
@@ -31,7 +35,7 @@ public class UploadController {
 
             ProcessBuilder builder = new ProcessBuilder();
             if (isWindows) {
-                builder.command("cmd.exe", "/c", "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat C:\\ProgramData\\Anaconda3 && cd C:\\src\\git\\iNNfer && python run.py -m C:\\src\\git\\iNNfer\\models\\RRDB_ESRGAN_x4.pth");
+                builder.command("cmd.exe", "/c", uploadPath);
             } else {
                 builder.command("python", "/Users/psy/study/upscale_web/src/main/resources/python/test.py");
             }
