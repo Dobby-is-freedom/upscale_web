@@ -49,11 +49,14 @@ public class DownloadController {
             }
 
             // upload로 받았던 이미지들 업스케일링 && 리턴된 result 폴더 위치의 파일들을 압축
-            doZip(upscaleService.doConvert(radio), finalPath, "result.zip",response);
+            System.out.println("doConvert enter");
+            String tempStr = upscaleService.doConvert(radio);
+            System.out.println("doConvert escape");
+            doZip(tempStr, finalPath, "result.zip",response);
 
          //  doZip("C:\\src\\git\\Real-ESRGAN-210902\\results", "C:\\src\\git\\Real-ESRGAN-210902", "ddddd.zip", response);
 
-
+            System.out.println("zip and download END");
             results.put("status", "OK");
 
         } catch (Exception e) {
@@ -62,25 +65,6 @@ public class DownloadController {
             results.put("msg", e.getMessage());
         }
         return "html/index";
-    }
-
-    //파일을 복사하는 메소드
-    public static void fileCopy(String inFileName, String outFileName) {
-        try {
-            FileInputStream fis = new FileInputStream(inFileName);
-            FileOutputStream fos = new FileOutputStream(outFileName);
-
-            int data = 0;
-            while ((data = fis.read()) != -1) {
-                fos.write(data);
-            }
-            fis.close();
-            fos.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     // inFileParent 폴더 내 파일을 압축하여 zipFilePath 폴더 내 zipFileName 의 이름으로 저장하는 메소드
@@ -133,7 +117,11 @@ public class DownloadController {
                 if (fis != null) fis.close();
 
 
+            } else {
+                System.out.println("filelist is empty");
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
