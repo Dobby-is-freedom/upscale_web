@@ -39,7 +39,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     </header>
 
     <!-- Main -->
-    <form action="/upload" method="post" enctype="multipart/form-data">
+<%--    <form id="uploadForm" method="post" enctype="multipart/form-data">--%>
+            <form id="uploadForm">
         <!--uploader begin-->
         <%--파일 선택 버튼--%>
         <div class="button-box">
@@ -64,6 +65,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <script>
             var firstIndex = 0; // 파일 선택 버튼으로 이미지 들어올 때
             var secondIndex = 0; // 드래그 드롭으로 이미지 들어올 때
+
+            var btnCount = 0;
+            var dragCount = 0;
 
             function inputFile(input, num) {
                 const fileView = document.getElementById("fileTable")
@@ -173,21 +177,51 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
             const inImg = document.getElementById("fileButton")
             inImg.addEventListener("change", e => {
+                btnCount++;
+
                 inputFile(e.target, '1')
             })
 
             const dragImg = document.getElementById("fileDragIn")
             dragImg.addEventListener("change", e => {
+                dragCount++;
+
                 inputFile(e.target, '2')
             })
         </script>
 
         <!--upload-->
         <div>
-            <input type="submit" value="업로드"/>
+            <button id="uploadBtn">업로드</button>
         </div>
-
     </form>
+
+    <script>
+        function uploadFile(e) {
+            e.preventDefault();
+            var formData = new FormData($('#uploadForm')[0]);
+
+            $.ajax({
+                type: "POST",
+                enctype: "multipart/form-data",
+                url: "/upload",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (e){
+                    alert("성공");
+                },
+                error: function (e){
+                    console.log("실패");
+                }
+            });
+        }
+
+        const upFile = document.getElementById("uploadBtn")
+        upFile.addEventListener("click", e => {
+            uploadFile(e)
+        })
+    </script>
 
     <form action="/download" method="post" enctype="multipart/form-data">
 
@@ -209,9 +243,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         <!--upload-->
         <div>
-            <input type="submit" value="다운로드"/>
+            <input type="submit" value="다운로드" style="disabled: true"/>
         </div>
-
     </form>
 
     <!-- Footer -->

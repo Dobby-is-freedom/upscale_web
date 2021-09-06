@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +28,9 @@ public class UploadController {
     @RequestMapping(value = "/upload")
     @ResponseBody
     public
- String doUpload(@RequestParam("file") List<MultipartFile> fileList, HttpSession httpSession) {
+ String doUpload(MultipartHttpServletRequest request, HttpSession httpSession) {
+
+        List<MultipartFile> fileList = request.getFiles("file");
 
         Map results = new HashMap<String, Object>();
 
@@ -89,7 +93,6 @@ public class UploadController {
             e.printStackTrace();
         }
     }
-
 }
 
 
