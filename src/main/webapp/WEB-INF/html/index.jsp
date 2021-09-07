@@ -227,9 +227,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         })
     </script>
 
-    <form action="/download" method="post" enctype="multipart/form-data">
-
-        <!--option-->
+        <form id="downloadForm" action="/download" method="post">
+            <!--option-->
         <div class="option-box">
             <div class="box-left">옵션 :</div>
             <div class="box-right" style="display : inline-block;">
@@ -245,7 +244,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             </div>
         </div>
 
-        <!--upload-->
+        <!--download-->
         <div>
             <input type="submit" id="downloadBtn" value="다운로드" disabled=""/>
         </div>

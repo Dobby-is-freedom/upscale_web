@@ -4,10 +4,8 @@ package dobby.upscale.demo.upload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -45,7 +43,7 @@ public class DownloadController {
             String finalPath = httpSession.getServletContext().getRealPath(File.separator) + "/results" + nowPath;
             File download = new File(finalPath);
 
-            if (download.isDirectory() == false) {
+            if (!download.isDirectory()) {
                 download.mkdirs();
             }
 
@@ -54,8 +52,6 @@ public class DownloadController {
             String tempStr = upscaleService.doConvert(radio);
             System.out.println("doConvert escape");
             doZip(tempStr, finalPath, "result.zip",response);
-
-         //  doZip("C:\\src\\git\\Real-ESRGAN-210902\\results", "C:\\src\\git\\Real-ESRGAN-210902", "ddddd.zip", response);
 
             System.out.println("zip and download END");
             results.put("status", "OK");
@@ -111,15 +107,16 @@ public class DownloadController {
                 while ((n = bis.read(buffer)) > 0) {
                     response.getWriter().write(n);
                 }
-                if (bis != null) bis.close();
-                if (fis != null) fis.close();
+                bis.close();
+                fis.close();
 
                 response.getWriter().close();
+                System.out.println("writer close");
 
             } else {
                 System.out.println("filelist is empty");
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
