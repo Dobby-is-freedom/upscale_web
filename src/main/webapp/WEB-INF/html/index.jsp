@@ -271,34 +271,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         })
     </script>
 
-        <form id="downloadForm" action="/download" method="post">
-            <!--option-->
-        <div class="option-box">
-            <div class="box-left">옵션 :</div>
-            <div class="box-right" style="display : inline-block;">
-
-                <input type="radio" id="basic1" name="selection" value="basic" checked>
-                <label class="kr-font" for="basic1">기본</label>
-
-                <input type="radio" id="image1" name="selection" value="image">
-                <label class="kr-font" for="image">그림</label>
-
-                <input type="radio" id="photo1" name="selection" value="photo">
-                <label class="kr-font" for="photo">사진</label>
-            </div>
-        </div>
-
-        <!--download-->
-        <div>
-            <input type="submit" id="downloadBtn" value="다운로드" disabled=""/>
-        </div>
-    </form>
-
-    <script>
-        window.onload=function(){ // 페이지 로딩 후 실행
-            $('#downloadBtn').prop('disabled', true);
-        };
-    </script>
     <!-- Footer -->
     <footer id="footer">
         <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
