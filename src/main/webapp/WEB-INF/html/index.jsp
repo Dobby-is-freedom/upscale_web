@@ -39,8 +39,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     </header>
 
     <!-- Main -->
-<%--    <form id="uploadForm" method="post" enctype="multipart/form-data">--%>
-    <form id="uploadForm">
+    <%--    <form id="uploadForm" method="post" enctype="multipart/form-data">--%>
+    <form id="uploadForm" enctype="multipart/form-data">
         <!--uploader begin-->
         <%--파일 선택 버튼--%>
         <div class="button-box">
@@ -65,9 +65,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <script>
             var firstIndex = 0; // 파일 선택 버튼으로 이미지 들어올 때
             var secondIndex = 0; // 드래그 드롭으로 이미지 들어올 때
-
-            var btnCount = 0;
-            var dragCount = 0;
 
             function inputFile(input, num) {
                 const fileView = document.getElementById("fileTable")
@@ -116,9 +113,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                         fileCancel.textContent = "선택 취소";
                         fileCancel.classList.add("file-cancel")
                         fileCancel.addEventListener('click', function (event) { // click 이벤트
-                            // console.log(tableTr.id + '를 삭제합니다.');
-                            // console.log(event.target.id)
-                            // console.log(event.target.id.split('_'))
 
                             if (event.target.id.split('_')[1] == '1') { // 파일 선택 버튼으로 들어온 이미지 중
 
@@ -177,15 +171,11 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
             const inImg = document.getElementById("fileButton")
             inImg.addEventListener("change", e => {
-                btnCount++;
-
                 inputFile(e.target, '1')
             })
 
             const dragImg = document.getElementById("fileDragIn")
             dragImg.addEventListener("change", e => {
-                dragCount++;
-
                 inputFile(e.target, '2')
             })
         </script>
@@ -223,14 +213,25 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (e){
+                success: function (data) {
                     console.log("성공");
 
-                    upFile.disabled = true;
+                    let blob = new Blob([data], { type: 'application/zip' });
 
-                    $('#downloadBtn').prop('disabled', false);
+                    var link = document.createElement('a');
+                    var url = window.URL.createObjectURL(blob);
+                    link.href = url;
+                    link.target = '_self';
+                    document.body.append(link);
+                    link.click();
+                    link.remove();
+                    window.URL.revokeObjectURL(url);
+
+                    // upFile.disabled = true; // 업로드 비활성
+                    //
+                    // $('#downloadBtn').prop('disabled', false); // 다운로드 활성
                 },
-                error: function (e){
+                error: function (e) {
                     console.log("실패");
                 }
             });
@@ -271,9 +272,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     </form>
 
     <script>
-        $(document).ready(function ($) {
+        window.onload=function(){ // 페이지 로딩 후 실행
             $('#downloadBtn').prop('disabled', true);
-        });
+        };
     </script>
     <!-- Footer -->
     <footer id="footer">

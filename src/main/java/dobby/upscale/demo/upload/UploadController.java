@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -35,8 +36,7 @@ public class UploadController {
 
     @PostMapping(value = "/upload")
     @ResponseBody
-    public
- String doUpload(MultipartHttpServletRequest request, HttpServletResponse response, HttpSession httpSession) {
+    public String doUpload(MultipartHttpServletRequest request, HttpServletResponse response, HttpSession httpSession) {
 
         List<MultipartFile> fileList = request.getFiles("file");
         String radio = request.getParameter("selection");
@@ -58,16 +58,16 @@ public class UploadController {
             loopFile:
             for (int i = 0; i < fileList.size(); i++) {
 
-                    if (fileList.get(i).getSize() == 0) {
-                        // input 태그가 두개라서 둘 중 하나는 빈 곳 존재
-                        continue;
-                    }
-                    File newFile = new File(upload.getPath() + "/" + i +".png");
-                    File tempFile = new File(fileTempPath + i+".png");
+                if (fileList.get(i).getSize() == 0) {
+                    // input 태그가 두개라서 둘 중 하나는 빈 곳 존재
+                    continue;
+                }
+                File newFile = new File(upload.getPath() + "/" + i + ".png");
+                File tempFile = new File(fileTempPath + i + ".png");
 
-                    fileList.get(i).transferTo(newFile);
+                fileList.get(i).transferTo(newFile);
 
-                    this.fileCopy( newFile.getPath(), tempFile.getPath());
+                this.fileCopy(newFile.getPath(), tempFile.getPath());
 
             }
 
@@ -133,6 +133,7 @@ public class UploadController {
             e.printStackTrace();
         }
     }
+
     // inFileParent 폴더 내 파일을 압축하여 zipFilePath 폴더 내 zipFileName 의 이름으로 저장하는 메소드
     public int doZip(String inFileParent, String zipFilePath, String zipFileName, HttpServletResponse response) {
 
@@ -172,14 +173,24 @@ public class UploadController {
                 FileInputStream fis = new FileInputStream(zipFilePath + zipFileName);
                 BufferedInputStream bis = new BufferedInputStream(fis);
 
+                ServletOutputStream so = response.getOutputStream();
+                BufferedOutputStream bos = new BufferedOutputStream(so);
+
                 int n = 0;
                 while ((n = bis.read(buffer)) > 0) {
-                    response.getWriter().write(n);
+//                    response.getWriter().write(n);
+                    bos.write(buffer, 0, n);
+                    bos.flush();
                 }
+//                bis.close();
+//                fis.close();
+
+                bos.close();
                 bis.close();
+                so.close();
                 fis.close();
 
-                response.getWriter().close();
+//                response.getWriter().close();
                 System.out.println("writer close");
 
             } else {
