@@ -205,7 +205,34 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         function uploadFile(e) {
             e.preventDefault();
             var formData = new FormData($('#uploadForm')[0]);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
 
+                    var filename = "";
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('attachment') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                    }
+
+                    //this.response is what you're looking for
+                    console.log(this.response, typeof this.response);
+                    var a = document.createElement("a");
+                    var url = URL.createObjectURL(this.response)
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                }
+            }
+            xhr.open('POST', '/upload');
+            xhr.responseType = 'blob'; // !!필수!!
+            xhr.send(formData);
+        }
+/*
             $.ajax({
                 type: "POST",
                 enctype: "multipart/form-data",
@@ -216,7 +243,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 success: function (data) {
                     console.log("성공");
 
-                    let blob = new Blob([data], { type: 'application/zip' });
+                    let blob = new Blob([data], { type: 'application/octer-stream' });
 
                     var link = document.createElement('a');
                     var url = window.URL.createObjectURL(blob);
@@ -235,8 +262,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     console.log("실패");
                 }
             });
-        }
 
+        }
+*/
         const upFile = document.getElementById("uploadBtn")
         upFile.addEventListener("click", e => {
             uploadFile(e)
@@ -264,11 +292,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <div>
             <input type="submit" id="downloadBtn" value="다운로드" disabled=""/>
         </div>
-    </form>
-
-    <form id="test" action="/test1" method="post">
-        <input type="text"/>
-        <input type="submit" value="dddd">
     </form>
 
     <script>

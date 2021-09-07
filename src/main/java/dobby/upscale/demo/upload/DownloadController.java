@@ -3,9 +3,11 @@ package dobby.upscale.demo.upload;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -25,7 +27,7 @@ public class DownloadController {
     @Autowired
     protected UpscaleService upscaleService;
 
-    @PostMapping (value = "/download")
+    @PostMapping(value = "/download")
     public String doDownload(@RequestParam Map<String, String> map, HttpServletResponse response, HttpSession httpSession) {
 
         String radio = map.get("selection");
@@ -102,16 +104,18 @@ public class DownloadController {
                 response.addHeader("Content-Disposition", "attachment;filename=" + zipFileName);
                 FileInputStream fis = new FileInputStream(zipFilePath + zipFileName);
                 BufferedInputStream bis = new BufferedInputStream(fis);
-
+                ServletOutputStream so = response.getOutputStream();
+                BufferedOutputStream bos = new BufferedOutputStream(so);
                 int n = 0;
                 while ((n = bis.read(buffer)) > 0) {
-                    response.getWriter().write(n);
+                    bos.write(buffer, 0, n);
+                    bos.flush();
                 }
-                bis.close();
-                fis.close();
+                if (bos != null) bos.close();
+                if (bis != null) bis.close();
+                if (so != null) so.close();
+                if (fis != null) fis.close();
 
-                response.getWriter().close();
-                System.out.println("writer close");
 
             } else {
                 System.out.println("filelist is empty");

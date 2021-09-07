@@ -100,7 +100,7 @@ public class UploadController {
             System.out.println("doConvert enter");
             String tempStr = upscaleService.doConvert(radio);
             System.out.println("doConvert escape");
-            doZip(tempStr, finalPath, "result.zip", response);
+            doZip(tempStr, finalPath,  "result.zip", response);
 
             System.out.println("zip and download END");
             results2.put("status", "OK");
@@ -133,7 +133,6 @@ public class UploadController {
             e.printStackTrace();
         }
     }
-
     // inFileParent 폴더 내 파일을 압축하여 zipFilePath 폴더 내 zipFileName 의 이름으로 저장하는 메소드
     public int doZip(String inFileParent, String zipFilePath, String zipFileName, HttpServletResponse response) {
 
@@ -168,8 +167,11 @@ public class UploadController {
                 zout.close();
 
 //파일다운로드 START
-                response.setContentType("application/zip");
-                response.addHeader("Content-Disposition", "attachment;filename=" + zipFileName);
+                response.setHeader( "Content-Disposition", "attachment;filename=\"" + zipFileName +"\"");
+
+                response.setContentType("application/octer-stream");
+                response.setHeader("Content-Transfer-Encoding", "binary;");
+
                 FileInputStream fis = new FileInputStream(zipFilePath + zipFileName);
                 BufferedInputStream bis = new BufferedInputStream(fis);
 
@@ -178,19 +180,15 @@ public class UploadController {
 
                 int n = 0;
                 while ((n = bis.read(buffer)) > 0) {
-//                    response.getWriter().write(n);
                     bos.write(buffer, 0, n);
                     bos.flush();
                 }
-//                bis.close();
-//                fis.close();
 
                 bos.close();
                 bis.close();
                 so.close();
                 fis.close();
 
-//                response.getWriter().close();
                 System.out.println("writer close");
 
             } else {
