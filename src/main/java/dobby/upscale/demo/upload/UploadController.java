@@ -33,7 +33,7 @@ public class UploadController {
     @Value("${file.temp.path}")
     String fileTempPath;
 
-    @RequestMapping(value = "/upload")
+    @PostMapping(value = "/upload")
     @ResponseBody
     public
  String doUpload(MultipartHttpServletRequest request, HttpServletResponse response, HttpSession httpSession) {

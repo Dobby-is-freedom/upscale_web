@@ -40,7 +40,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
     <!-- Main -->
 <%--    <form id="uploadForm" method="post" enctype="multipart/form-data">--%>
-            <form id="uploadForm">
+    <form id="uploadForm">
         <!--uploader begin-->
         <%--파일 선택 버튼--%>
         <div class="button-box">
@@ -190,6 +190,21 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             })
         </script>
 
+        <!--option-->
+        <div class="option-box">
+            <div class="box-left">옵션 :</div>
+            <div class="box-right" style="display : inline-block;">
+
+                <input type="radio" id="basic" name="selection" value="basic" checked>
+                <label class="kr-font" for="basic">기본</label>
+
+                <input type="radio" id="image" name="selection" value="image">
+                <label class="kr-font" for="image">그림</label>
+
+                <input type="radio" id="photo" name="selection" value="photo">
+                <label class="kr-font" for="photo">사진</label>
+            </div>
+        </div>
         <!--upload-->
         <div>
             <button id="uploadBtn">업로드</button>
@@ -233,13 +248,13 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <div class="box-left">옵션 :</div>
             <div class="box-right" style="display : inline-block;">
 
-                <input type="radio" id="basic" name="selection" value="basic" checked>
-                <label class="kr-font" for="basic">기본</label>
+                <input type="radio" id="basic1" name="selection" value="basic" checked>
+                <label class="kr-font" for="basic1">기본</label>
 
-                <input type="radio" id="image" name="selection" value="image">
+                <input type="radio" id="image1" name="selection" value="image">
                 <label class="kr-font" for="image">그림</label>
 
-                <input type="radio" id="photo" name="selection" value="photo">
+                <input type="radio" id="photo1" name="selection" value="photo">
                 <label class="kr-font" for="photo">사진</label>
             </div>
         </div>
@@ -248,6 +263,11 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <div>
             <input type="submit" id="downloadBtn" value="다운로드" disabled=""/>
         </div>
+    </form>
+
+    <form id="test" action="/test1" method="post">
+        <input type="text"/>
+        <input type="submit" value="dddd">
     </form>
 
     <script>
