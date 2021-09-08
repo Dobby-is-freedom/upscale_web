@@ -1,5 +1,5 @@
 # upscale_web
-web 버전
+
 
 출처입니다.
 
