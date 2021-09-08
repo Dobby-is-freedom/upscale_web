@@ -1668,7 +1668,7 @@ body.is-preload #footer {
 }
 
 /*이미지 선택, 옵션 부분 css*/
-.optionbox-left {
+.box-left {
     /*font-family: "Source Sans Pro", sans-serif;*/
     /*font-weight : bold;*/
     font-size: 1rem;
@@ -1697,7 +1697,7 @@ body.is-preload #footer {
 }
 
 /*label*/
-.fileCk {
+.select-file {
     font-weight: bold;
     font-size: 1rem;
     border: 1px solid white;
@@ -1711,7 +1711,7 @@ body.is-preload #footer {
 
 /* 드래그 앤 드롭 css*/
 /*드래그 앤 드롭 공간*/
-.drag-drop {
+.drag-drop-box {
     border: 2px dashed #ffffff;
     outline-offset:-10px;
     transition: all .15s ease-in-out;
@@ -1721,12 +1721,12 @@ body.is-preload #footer {
 }
 
 /*드래그 앤 드롭 부분에 마우스 올렸을 시*/
-.drag-drop:hover{
+.drag-drop-box:hover{
     border: 4px dashed #778899;
 }
 
 /*input*/
-.img-drag-in {
+.file-drag-in {
     position: absolute;
     margin: 0;
     width: 100%;
@@ -1747,4 +1747,28 @@ body.is-preload #footer {
     color: #ffffff;
     padding: 35px 0;
     font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 이미지 보여지는 부분 */
+.no-file{
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+}
+
+#fileTable{
+    width: 400px;
+    height: 100px;
+}
+
+.image-view{
+    width: 70px;
+    max-width: 100px;
+    height: 70px;
+    max-height: 100px;
+}
+
+/* 파일명 */
+.file-name{
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
 }

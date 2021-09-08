@@ -15,7 +15,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 <html>
 <head>
-    <%--    <title>Dimension by HTML5 UP</title>--%>
     <title>Dobby Is Free</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
@@ -23,10 +22,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <noscript>
         <link rel="stylesheet" href="../../resources/css/noscript.css"/>
     </noscript>
-
-    <!--Thumbnail slider css-->
-    <link rel="stylesheet" href="../../resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../../resources/css/sliderstyle.css" type="text/css">
 
 </head>
 <body class="is-preload">
@@ -36,111 +31,58 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
     <!-- Header -->
     <header id="header">
-        <%--        <div class="logo">--%>
-        <%--            <span class="icon fa-gem"></span>--%>
-        <%--        </div>--%>
         <div class="content">
             <div class="inner">
-                <!-- 안녕하세요 ㅇ소여씨 -->
-                <!-- ^이거 누구에욬ㅋㅋㅋㅋㅋㅋ -->
                 <h1>dobby is free</h1>
             </div>
         </div>
     </header>
 
     <!-- Main -->
-    <!--uploader begin-->
-    <%--파일 선택 버튼--%>
-    <div class="imagebox">
-        <div class="optionbox-left">이미지 선택 :</div>
-        <!--        <input type="file" id="fileElem" multiple accept="image/*" onchange="setThumbnail(event);">-->
-        <label class="fileCk" for="fileElem">파일 선택</label>
-        <input type="file" id="fileElem" class="file-button" multiple accept="image/*" onchange="setThumbnail(event);"/>
-    </div>
-
-    <%--파일 드래그 앤 드롭 부분--%>
-    <div class="drag-drop">
-        <input class="img-drag-in" type='file' multiple accept="image/*" onchange="setThumbnail(event);"/>
-        <div  id="drag-text" class="drag-text">
-            <label>이미지 끌어다 놓기</label>
+    <%--    <form id="uploadForm" method="post" enctype="multipart/form-data">--%>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <!--uploader begin-->
+        <%--파일 선택 버튼--%>
+        <div class="button-box">
+            <div class="box-left">이미지 선택 :</div>
+            <label class="select-file" for="fileButton">파일 선택</label>
+            <input type="file" id="fileButton" name="file" class="file-button" multiple accept="image/*"/>
         </div>
-    </div>
 
-    <script>
-        function setThumbnail(event) {
-            var owl = $('.owl-carousel');
-
-            var count = document.querySelectorAll(".item").length;
-            for (var i = 0; i < count; i++) {
-                owl.trigger('remove.owl.carousel', 0);
-            }
-            owl.trigger('refresh.owl.carousel');
-
-            // 선택한 이미지의 개수 체크
-            if (event.target.files.length !== 0) {
-                for (var image of event.target.files) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (event) {
-                        var newimg = document.createElement("img");
-                        newimg.setAttribute("src", event.target.result);
-                        // newimg.setAttribute("alt", "");
-                        var newitem = document.createElement("div");
-                        newitem.setAttribute("class", "item");
-                        newitem.appendChild(newimg);
-
-                        owl.trigger('add.owl.carousel', newitem).trigger('update.owl.carousel').trigger('refresh.owl.carousel');
-                    };
-
-                    reader.readAsDataURL(image);
-                }
-
-                // 이미지 넣으면 thumbnail slider 보여주기
-                $("#slider").show();
-                $(".drag-text").hide();
-            } else {
-                // 이미지 없으면 thumbnail slider 숨기기
-                $("#slider").hide();
-            }
-
-        }
-    </script>
-    <!--uploader end-->
-
-    <!--thumbnail slider-->
-    <%--처음 thumbnail slider 공간 숨기기--%>
-    <section id="slider" style="display: none">
-        <div class="thumbnail-pic">
-            <div id="img_container" class="thumbs owl-carousel"></div>
+        <%--파일 드래그 앤 드롭 부분--%>
+        <div class="drag-drop-box">
+            <input type="file" id="fileDragIn" name="file" class="file-drag-in" multiple accept="image/*"/>
+            <div id="dragText" class="drag-text">
+                <label>이미지 끌어다 놓기</label>
+            </div>
         </div>
-    </section>
-    <!--thumbnail slider-->
 
-    <!--option-->
-    <div class="optionbox">
-        <div class="optionbox-left">옵션 :</div>
-        <div class="optionbox-right" style="display : inline-block;">
+        <%--이미지 보여지는 부분--%>
+        <p class="no-file">(파일이 선택되지 않음)</p>
+        <table id="fileTable" style="display: none">
+        </table>
 
-            <input type="radio" id="basic" name="selection" value="basic" checked>
-            <label class="kr-font" for="basic">기본</label>
+        <!--option-->
+        <div class="option-box">
+            <div class="box-left">옵션 :</div>
+            <div class="box-right" style="display : inline-block;">
 
-            <input type="radio" id="image" name="selection" value="image">
-            <label class="kr-font" for="image">그림</label>
+                <input type="radio" id="basic" name="selection" value="basic" checked>
+                <label class="kr-font" for="basic">기본</label>
 
-            <input type="radio" id="photo" name="selection" value="photo">
-            <label class="kr-font" for="photo">사진</label>
+                <input type="radio" id="image" name="selection" value="image">
+                <label class="kr-font" for="image">그림</label>
+
+                <input type="radio" id="photo" name="selection" value="photo">
+                <label class="kr-font" for="photo">사진</label>
+            </div>
         </div>
-    </div>
-<!--
-    <script>
-        $(document).ready(function () {
+        <!--upload-->
+        <div>
+            <button id="uploadBtn">업로드</button>
+        </div>
+    </form>
 
-            $("input:radio[name='selection']:radio[value='basic']").prop('checked', true); // 선택하기
-            $("input:radio[name='selection']:radio[value='basic']").prop('checked', false); // 해제하기
-        })
-    </script>
-
-    -->
     <!-- Footer -->
     <footer id="footer">
         <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
@@ -157,11 +99,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 <script src="../../resources/js/breakpoints.min.js"></script>
 <script src="../../resources/js/util.js"></script>
 <script src="../../resources/js/main.js"></script>
-<!--Uploader Scripts-->
-<script src="../../resources/js/jquery-3.3.1.min.js"></script>
-<script src="../../resources/js/jquery-ui.min.js"></script>
-<script src="../../resources/js/owl.carousel.min.js"></script>
-<script src="../../resources/js/uploaderNslider_main.js"></script>
+<script src="../../resources/js/fileUpload.js"></script>
 
 </body>
 </html>
